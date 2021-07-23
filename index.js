@@ -2,7 +2,7 @@ const express = require("express");
 const {graphqlHTTP} = require("express-graphql");
 const fs = require('fs');
 const { buildSchema } = require("graphql");
-const { about } = require("./api_resolver");
+const { about } = require("./api_handler");
 
 const PORT = 3000;
 const app = express();
@@ -22,7 +22,6 @@ app.use('/graphql', graphqlHTTP({
     rootValue: root,
     graphiql: true
 }))
-
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
