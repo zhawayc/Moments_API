@@ -1,3 +1,31 @@
+type User {
+    _id: ID!
+    username: String
+    password: String
+}
+
+type Story {
+    _id: ID!
+    userId: ID!
+    title: String!
+    content: String
+}
+
+input inputStory {
+    _id: ID,
+    userId: ID!,
+    title: String!
+    content: String!
+}
+
 type Query {
     about: String!
+    getStoriesByUserId(userId: String!): [Story]
+    getStories: [Story]
+}
+
+type Mutation {
+    createStory(story: inputStory!): Story
+    updateStory(story: inputStory!): Story
+    deleteStory(storyId: ID!): Boolean
 }
