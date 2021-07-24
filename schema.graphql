@@ -27,5 +27,5 @@ type Query {
 type Mutation {
     createStory(story: inputStory!): Story
     updateStory(story: inputStory!): Story
-    deleteStory(storyId: ID!): Boolean
+    deleteStory(_id: String!): Boolean
 }

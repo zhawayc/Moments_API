@@ -5,6 +5,12 @@ async function about(){
     return "about!";
 }
 
+async function getStoriesByUserId( {userId} ) {
+    const db = await getDb();
+    const stories = await db.collection('story').find({userId}).toArray();
+    return stories;
+}
+
 async function getStories() {
     const db = await getDb();
     const stories = await db.collection('story').find({}).toArray();
@@ -28,4 +34,11 @@ async function updateStory({story}) {
     return updatedStory;
 }
 
-module.exports = { about, getStories, createStory, updateStory }
+async function deleteStory({_id}) {
+    const db = await getDb();
+    _id = new ObjectId(_id);
+    const result = await db.collection('story').remove({_id});
+    return true;
+}
+
+module.exports = { about, getStoriesByUserId, getStories, createStory, updateStory, deleteStory };
