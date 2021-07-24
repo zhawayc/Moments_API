@@ -14,6 +14,11 @@ type Story {
     created: GraphQLDate!
 }
 
+type StoriesWithPage {
+    stories: [Story]
+    page: Int!
+}
+
 input inputStory {
     _id: ID,
     userId: ID!,
@@ -23,8 +28,8 @@ input inputStory {
 
 type Query {
     about: String!
-    getStoriesByUserId(userId: String!): [Story]
-    getStories: [Story]
+    getStoriesByUserId(userId: String!, page: Int!): StoriesWithPage
+    getStories(page: Int!): StoriesWithPage
 }
 
 type Mutation {

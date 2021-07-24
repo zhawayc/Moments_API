@@ -1,20 +1,24 @@
 const { ObjectId } = require('mongodb');
 const { getDb } = require('./db.js');
 
+const PAGE_SIZE = 10;
+
 async function about(){
     return "about!";
 }
 
-async function getStoriesByUserId( {userId} ) {
+async function getStoriesByUserId( {userId, page} ) {
     const db = await getDb();
-    const stories = await db.collection('story').find({userId}).toArray();
-    return stories;
+    const cursor = await db.collection('story').find({userId}).skip(PAGE_SIZE * (page - 1)).limit(PAGE_SIZE);
+    const stories = cursor.toArray();
+    return { stories, page };
 }
 
-async function getStories() {
+async function getStories({ page }) {
     const db = await getDb();
-    const stories = await db.collection('story').find({}).toArray();
-    return stories;
+    const cursor = await db.collection('story').find({}).skip(PAGE_SIZE * (page - 1)).limit(PAGE_SIZE);
+    const stories = cursor.toArray();
+    return { stories, page};
 }
 
 async function createStory({story}) {
