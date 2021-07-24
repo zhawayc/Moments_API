@@ -1,3 +1,5 @@
+scalar GraphQLDate
+
 type User {
     _id: ID!
     username: String
@@ -8,7 +10,8 @@ type Story {
     _id: ID!
     userId: ID!
     title: String!
-    content: String
+    content: String!
+    created: GraphQLDate!
 }
 
 input inputStory {
