@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 
 //const dbUrl = "mongodb://localhost/moments";
-const dbUrl = "mongodb+srv://root:123a@cluster0.2alyx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const dbUrl = process.env.DB || "mongodb://localhost/moments";
 
 let db;
 

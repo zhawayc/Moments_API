@@ -5,7 +5,7 @@ const { buildSchema } = require("graphql");
 const { about, getStoriesByUserId, getStories, createStory, updateStory, deleteStory, likeStory } = require("./api_handler");
 const { signin, login } = require('./auth');
 
-const PORT = 3000;
+const PORT = process.env.API_SERVER_PORT || 3000;
 const app = express();
 
 const schema = buildSchema(fs.readFileSync('schema.graphql', 'utf-8'));
