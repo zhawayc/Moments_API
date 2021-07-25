@@ -33,7 +33,7 @@ async function getAuthorsForStories(stories) {
 async function getAuthorForStory(story) {
     const db = await getDb();
     const user = await db.collection('user').findOne({_id: new ObjectId(story.userId)});
-    story.username = user.name;
+    story.username = user.username;
     return story;
 }
 
