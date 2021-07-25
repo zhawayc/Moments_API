@@ -2,7 +2,7 @@ const express = require("express");
 const {graphqlHTTP} = require("express-graphql");
 const fs = require('fs');
 const { buildSchema } = require("graphql");
-const { about, getStoriesByUserId, getStories, createStory, updateStory, deleteStory } = require("./api_handler");
+const { about, getStoriesByUserId, getStories, createStory, updateStory, deleteStory, likeStory } = require("./api_handler");
 
 const PORT = 3000;
 const app = express();
@@ -15,6 +15,7 @@ const root = {
     createStory,
     updateStory,
     deleteStory,
+    likeStory,
 };
 
 app.get('/', (req, res) => {

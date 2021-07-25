@@ -10,15 +10,30 @@ async function about(){
 async function getStoriesByUserId( {userId, page} ) {
     const db = await getDb();
     const cursor = await db.collection('story').find({userId}).skip(PAGE_SIZE * (page - 1)).limit(PAGE_SIZE);
-    const stories = cursor.toArray();
+    let stories = await cursor.toArray();
+    stories = getLikesForStories(stories);
     return { stories, page };
 }
 
 async function getStories({ page }) {
     const db = await getDb();
     const cursor = await db.collection('story').find({}).skip(PAGE_SIZE * (page - 1)).limit(PAGE_SIZE);
-    const stories = cursor.toArray();
+    let stories = await cursor.toArray();
+    stories = getLikesForStories(stories);
     return { stories, page};
+}
+
+async function getLikesForStories(stories) {
+    return stories.map(async element => (
+        getLikeForStory(element)
+    ));
+}
+
+async function getLikeForStory(story) {
+    const db = await getDb();
+    const num = await db.collection('like').findOne({_id: story._id});
+    story.like = num == undefined ? 0 : num.like;
+    return story;
 }
 
 async function createStory({story}) {
@@ -45,4 +60,24 @@ async function deleteStory({_id}) {
     return true;
 }
 
-module.exports = { about, getStoriesByUserId, getStories, createStory, updateStory, deleteStory };
+async function likeStory({_id, userId}) {
+    const db = await getDb();
+    _id = new ObjectId(_id);
+    userId = new ObjectId(userId);
+    const result = await db.collection('story').findOne({_id});
+    let likedBy = result["likedBy"];
+    if (likedBy != undefined && likedBy.findIndex((id)=>(id.toHexString()==userId.toHexString())) != -1) {
+        return false;
+    }
+    else if (likedBy == undefined) {
+        likedBy = [userId];
+    }
+    else {
+        likedBy.add(userId);
+    }
+    await db.collection('story').updateOne({ _id }, { $set: { likedBy } });
+    await db.collection('like').update({ _id }, {$set: {"like": likedBy.length}}, {"upsert": true});
+    return true;
+}
+
+module.exports = { about, getStoriesByUserId, getStories, createStory, updateStory, deleteStory, likeStory };

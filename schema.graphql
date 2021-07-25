@@ -12,6 +12,7 @@ type Story {
     title: String!
     content: String!
     created: GraphQLDate!
+    like: Int
 }
 
 type StoriesWithPage {
@@ -36,4 +37,5 @@ type Mutation {
     createStory(story: inputStory!): Story
     updateStory(story: inputStory!): Story
     deleteStory(_id: String!): Boolean
+    likeStory(_id: ID!, userId: ID!): Boolean
 }
