@@ -19,14 +19,28 @@ async function getStories({ page }) {
     const db = await getDb();
     const cursor = await db.collection('story').find({}).skip(PAGE_SIZE * (page - 1)).limit(PAGE_SIZE);
     let stories = await cursor.toArray();
-    stories = getLikesForStories(stories);
+    stories = await getLikesForStories(stories);
+    stories = await getAuthorsForStories(stories);
     return { stories, page};
 }
 
+async function getAuthorsForStories(stories) {
+    return Promise.all(stories.map(async story => (
+        getAuthorForStory(story)
+    )));
+}
+
+async function getAuthorForStory(story) {
+    const db = await getDb();
+    const user = await db.collection('user').findOne({_id: new ObjectId(story.userId)});
+    story.username = user.name;
+    return story;
+}
+
 async function getLikesForStories(stories) {
-    return stories.map(async element => (
+    return Promise.all(stories.map(async element => (
         getLikeForStory(element)
-    ));
+    )));
 }
 
 async function getLikeForStory(story) {
