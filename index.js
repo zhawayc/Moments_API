@@ -36,7 +36,7 @@ app.post('/signin', async (req, res) => {
     }
 });
 
-app.post('/login', async (req, res) => {
+app.post('/signup', async (req, res) => {
     const success = await login(req.body);
     if (success == true) {
         res.status(200).send("Successful");
@@ -45,10 +45,6 @@ app.post('/login', async (req, res) => {
         res.status(500).send("The username already exists.");
     }
 })
-
-app.post('/login', (req, res) => {
-    console.log(req.body);
-});
 
 app.use('/graphql', graphqlHTTP({
     schema,
