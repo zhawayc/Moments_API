@@ -8,7 +8,7 @@
 
 # Iteration 1
 - Frontend:
-    - Finished UI design for components, including NavBar, AddStoryNavItem, SigninNavItem, Timeline, CreateStory, UpdateStory, DeleteStory
+    - Finished UI design for components, including NavBar, AddStoryNavItem, SigninNavItem, Newsfeed, Timeline, CreateStory, UpdateStory, DeleteStory
     - Set up React Router to navigate across the components
 - Backend:
     - Finished schema design, set up database in MongoDB Atlas
