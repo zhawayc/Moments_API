@@ -5,7 +5,6 @@ async function signin({username, password}) {
     let filter = {};
     filter.username = username;
     filter.password = password;
-    console.log(filter);
     const user = await db.collection("user").findOne(filter);
     if(user != undefined) {
         return true;

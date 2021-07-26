@@ -3,7 +3,7 @@ const {graphqlHTTP} = require("express-graphql");
 const fs = require('fs');
 const { buildSchema } = require("graphql");
 const { about, getStoriesByUserId, getStories, createStory, updateStory, deleteStory, likeStory } = require("./api_handler");
-const { signin, login } = require('./auth');
+const { signin, signup } = require('./auth');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -37,7 +37,7 @@ app.post('/signin', async (req, res) => {
 });
 
 app.post('/signup', async (req, res) => {
-    const success = await login(req.body);
+    const success = await signup(req.body);
     if (success == true) {
         res.status(200).send("Successful");
     }
