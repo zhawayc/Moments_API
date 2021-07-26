@@ -28,8 +28,8 @@ app.use(express.json());
 
 app.post('/signin', async (req, res) => {
     const success = await signin(req.body);
-    if (success == true) {
-        res.status(200).send("Successful");
+    if (success != undefined) {
+        res.status(200).send(success);
     }
     else {
         res.status(500).send("Username or Password is not correct.");
@@ -38,8 +38,8 @@ app.post('/signin', async (req, res) => {
 
 app.post('/signup', async (req, res) => {
     const success = await signup(req.body);
-    if (success == true) {
-        res.status(200).send("Successful");
+    if (success != undefined ) {
+        res.status(200).send(success);
     }
     else {
         res.status(500).send("The username already exists.");

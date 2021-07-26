@@ -7,19 +7,19 @@ async function signin({username, password}) {
     filter.password = password;
     const user = await db.collection("user").findOne(filter);
     if(user != undefined) {
-        return true;
+        return user._id;
     }
-    return false;
+    return;
 }
 
 async function signup({username, password}) {
     const db = await getDb();
     const user = await db.collection("user").findOne({username});
     if (user != undefined) {
-        return false;
+        return;
     }
-    await db.collection("user").insertOne({username, password});
-    return true;
+    const result = await db.collection("user").insertOne({username, password});
+    return result.insertedId;
 }
 
 module.exports = { signin, signup }
