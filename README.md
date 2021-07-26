@@ -1,6 +1,10 @@
-# Heroku Links
+# Heroku
 - Frontend: https://moments-frontend-yanchen.herokuapp.com/
 - Backend: https://moments-backend-yanchen.herokuapp.com/
+
+# Github
+- Frontend: https://github.com/zhawayc/Moments_UI
+- Backend: https://github.com/zhawayc/Moments_API
 
 # Iteration 1
 - Frontend:
