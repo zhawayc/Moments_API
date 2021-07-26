@@ -13,7 +13,7 @@ async function signin({username, password}) {
     return false;
 }
 
-async function login({username, password}) {
+async function signup({username, password}) {
     const db = await getDb();
     const user = await db.collection("user").findOne({username});
     if (user != undefined) {
@@ -23,4 +23,4 @@ async function login({username, password}) {
     return true;
 }
 
-module.exports = { signin, login }
+module.exports = { signin, signup }
