@@ -2,7 +2,7 @@ const express = require("express");
 const {graphqlHTTP} = require("express-graphql");
 const fs = require('fs');
 const { buildSchema } = require("graphql");
-const { about, getStoriesByUserId, getStories, createStory, updateStory, deleteStory, likeStory } = require("./api_handler");
+const { about, getStoriesByUserId, getStories, createStory, updateStory, deleteStory, likeStory, getStoryById } = require("./api_handler");
 const { signin, signup } = require('./auth');
 
 const PORT = process.env.PORT || 3000;
@@ -12,6 +12,7 @@ const schema = buildSchema(fs.readFileSync('schema.graphql', 'utf-8'));
 const root = {
     about,
     getStoriesByUserId,
+    getStoryById,
     getStories,
     createStory,
     updateStory,

@@ -24,6 +24,13 @@ async function getStories({ page }) {
     return { stories, page};
 }
 
+async function getStoryById({_id}) {
+    const db = await getDb();
+    _id = new ObjectId(_id);
+    const story = await db.collection('story').findOne({_id});
+    return story;
+}
+
 async function getAuthorsForStories(stories) {
     return Promise.all(stories.map(async story => (
         getAuthorForStory(story)
@@ -94,4 +101,4 @@ async function likeStory({_id, userId}) {
     return true;
 }
 
-module.exports = { about, getStoriesByUserId, getStories, createStory, updateStory, deleteStory, likeStory };
+module.exports = { about, getStoriesByUserId, getStoryById, getStories, createStory, updateStory, deleteStory, likeStory };

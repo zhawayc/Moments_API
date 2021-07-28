@@ -32,6 +32,7 @@ type Query {
     about: String!
     getStoriesByUserId(userId: String!, page: Int!): StoriesWithPage
     getStories(page: Int!): StoriesWithPage
+    getStoryById(_id: String!): Story
 }
 
 type Mutation {
