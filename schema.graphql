@@ -22,8 +22,8 @@ type StoriesWithPage {
 }
 
 input inputStory {
-    _id: ID,
-    userId: ID!,
+    _id: String,
+    userId: String!,
     title: String!
     content: String!
 }

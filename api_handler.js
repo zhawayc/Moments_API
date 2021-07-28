@@ -67,9 +67,9 @@ async function createStory({story}) {
 
 async function updateStory({story}) {
     const db = await getDb();
-    let { _id } = story;
-    _id = new ObjectId(_id);
-    await db.collection('story').updateOne({ _id }, { $set: { story } });
+    story._id = new ObjectId(story._id);
+    const { _id, ...change} = story;
+    await db.collection('story').updateOne({ _id }, { $set: {...change} });
     const updatedStory = await db.collection('story').findOne({_id});
     return updatedStory;
 }
