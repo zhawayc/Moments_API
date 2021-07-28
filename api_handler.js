@@ -87,7 +87,7 @@ async function likeStory({_id, userId}) {
         likedBy = [userId];
     }
     else {
-        likedBy.add(userId);
+        likedBy.push(userId);
     }
     await db.collection('story').updateOne({ _id }, { $set: { likedBy } });
     await db.collection('like').update({ _id }, {$set: {"like": likedBy.length}}, {"upsert": true});
