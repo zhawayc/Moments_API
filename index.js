@@ -20,6 +20,13 @@ const root = {
     likeStory,
 };
 
+let allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    next();
+}
+app.use(allowCrossDomain)
+
 app.get('/', (req, res) => {
     console.log("hello world");
     res.status(200).send(`<div>Hello World</div>`);
